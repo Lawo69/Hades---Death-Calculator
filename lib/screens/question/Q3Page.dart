@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hades/screens/question/Q3Page.dart';
+import 'package:hades/screens/question/Q4Page.dart';
 import 'package:info_popup/info_popup.dart';
-import '../../components/custem_button.dart';
 import '../../components/custem_text.dart';
+import '../../components/custem_textfield.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
-class Q2Page extends StatefulWidget {
-  const Q2Page({Key? key}) : super(key: key);
+class Q3Page extends StatefulWidget {
+  const Q3Page({Key? key}) : super(key: key);
 
   @override
-  State<Q2Page> createState() => _Q2PageState();
+  State<Q3Page> createState() => _Q3PageState();
 }
 
-class _Q2PageState extends State<Q2Page> {
-  bool isContainerVisible = false;
+class _Q3PageState extends State<Q3Page> {
+  final _nameController = TextEditingController();
+  final _bdayController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,41 +38,54 @@ class _Q2PageState extends State<Q2Page> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                
+                const SizedBox(
+                      height: 120,
+                    ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustemText(
-                      text: "Gender", 
-                      color: AppColors.white,
-                      fontWeight: FontWeight.normal,
-                      fontsize: 18,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustemText(
+                          text: "Height (cm)", 
+                          color: AppColors.white,
+                          fontWeight: FontWeight.normal,
+                          fontsize: 18,
+                        ),
+                        CustemTextfield(
+                          controller: _nameController,
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    CustomButton(
-                      onTap: () async {
-
-                      },
-                      text: 'Male',
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomButton(
-                      onTap: () async {
-
-                      },
-                      text: 'Female',
-                      width: MediaQuery.of(context).size.width,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustemText(
+                          text: "Weight (kg)", 
+                          color: AppColors.white,
+                          fontWeight: FontWeight.normal,
+                          fontsize: 18,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        CustemTextfield(
+                          controller: _bdayController,
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                   ],
-                ),                  
+                ),
+                const SizedBox(
+                  height: 120,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -86,7 +100,7 @@ class _Q2PageState extends State<Q2Page> {
                       ),
                     ),
                     InfoPopupWidget(
-                      contentTitle: 'Yeah, Ladies still reign supreme in the longevity game, holding the keys to unlocking the most doors on Time Street.',
+                      contentTitle: 'Worried your weight is a black hole of health troubles? Relax, there\'s a number for that - BMI! It\'s like a fitness fortune cookie, telling you if you\'re in the "just chill" zone, the "need some exercise" zone, or the "pizza party, maybe later" zone. So grab your scale, crack the code, and get ready to unleash your healthiest self!',
                       contentTheme: InfoPopupContentTheme(contentPadding: const EdgeInsets.all(15),
                         infoContainerBackgroundColor: AppColors.black,
                         infoTextStyle: TextStyle(
@@ -103,7 +117,7 @@ class _Q2PageState extends State<Q2Page> {
                     ),
                     IconButton(
                       onPressed: () {
-                        UtillFunction.navigateTo(context, const Q3Page());
+                        UtillFunction.navigateTo(context, const Q4Page());
                       },
                       icon: const Icon(
                         Icons.arrow_forward_ios,

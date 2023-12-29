@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hades/screens/question/Q3Page.dart';
+import 'package:hades/screens/home/endscreen.dart';
 import 'package:info_popup/info_popup.dart';
 import '../../components/custem_button.dart';
 import '../../components/custem_text.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
-class Q2Page extends StatefulWidget {
-  const Q2Page({Key? key}) : super(key: key);
+class Q10Page extends StatefulWidget {
+  const Q10Page({Key? key}) : super(key: key);
 
   @override
-  State<Q2Page> createState() => _Q2PageState();
+  State<Q10Page> createState() => _Q10PageState();
 }
 
-class _Q2PageState extends State<Q2Page> {
+class _Q10PageState extends State<Q10Page> {
   bool isContainerVisible = false;
 
   @override
@@ -42,7 +42,7 @@ class _Q2PageState extends State<Q2Page> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustemText(
-                      text: "Gender", 
+                      text: "Sleeping time", 
                       color: AppColors.white,
                       fontWeight: FontWeight.normal,
                       fontsize: 18,
@@ -54,7 +54,7 @@ class _Q2PageState extends State<Q2Page> {
                       onTap: () async {
 
                       },
-                      text: 'Male',
+                      text: 'More than 8 hours',
                       width: MediaQuery.of(context).size.width,
                     ),
                     const SizedBox(
@@ -64,14 +64,24 @@ class _Q2PageState extends State<Q2Page> {
                       onTap: () async {
 
                       },
-                      text: 'Female',
+                      text: '5 hours',
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomButton(
+                      onTap: () async {
+
+                      },
+                      text: 'Less than 3 hours',
                       width: MediaQuery.of(context).size.width,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                   ],
-                ),                  
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -86,7 +96,7 @@ class _Q2PageState extends State<Q2Page> {
                       ),
                     ),
                     InfoPopupWidget(
-                      contentTitle: 'Yeah, Ladies still reign supreme in the longevity game, holding the keys to unlocking the most doors on Time Street.',
+                      contentTitle: 'Sleep tight, fight strong! Every snooze fuels your inner hero, boosting health, happiness, and brainpower. Skimp on shut-eye? You\'re inviting grumpy gremlins and health villains.',
                       contentTheme: InfoPopupContentTheme(contentPadding: const EdgeInsets.all(15),
                         infoContainerBackgroundColor: AppColors.black,
                         infoTextStyle: TextStyle(
@@ -103,7 +113,7 @@ class _Q2PageState extends State<Q2Page> {
                     ),
                     IconButton(
                       onPressed: () {
-                        UtillFunction.navigateTo(context, const Q3Page());
+                        UtillFunction.navigateTo(context, const endScreenPage());
                       },
                       icon: const Icon(
                         Icons.arrow_forward_ios,

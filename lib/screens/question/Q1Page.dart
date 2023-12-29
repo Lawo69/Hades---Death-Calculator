@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hades/screens/home/home.dart';
 import 'package:hades/screens/question/Q2Page.dart';
+import 'package:info_popup/info_popup.dart';
 import '../../components/custem_text.dart';
 import '../../components/custem_textfield.dart';
 import '../../utils/app_colors.dart';
@@ -38,6 +38,9 @@ class _Q1PageState extends State<Q1Page> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
+                const SizedBox(
+                      height: 90,
+                    ),
                 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,6 +56,7 @@ class _Q1PageState extends State<Q1Page> {
                     ),
                     CustemTextfield(
                       controller: _nameController,
+                      width: MediaQuery.of(context).size.width,
                     ),
                     const SizedBox(
                       height: 20,
@@ -70,70 +74,47 @@ class _Q1PageState extends State<Q1Page> {
                       controller: _bdayController,
                       hintText: '28 Dec 2023',
                       prefixIcon: const Icon(Icons.calendar_today_outlined),
+                      width: MediaQuery.of(context).size.width,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                   ],
                 ),
-                Column(
+                const SizedBox(
+                  height: 90,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: AppColors.black,
-                      child: Column (
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              UtillFunction.navigateTo(context, const Q2Page());
-                            },
-                            icon: const Icon(
-                              Icons.close_outlined,
-                              color: Color(0xffFFFFFF),
-                              size: 14,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0, bottom: 15, left: 15, right: 15),
-                            child: CustemText(
-                              text: "Forget crystal balls, your birthday is the best clue to your expiration date! Life expectancy keeps soaring, fueled by health-savvy choices and medical marvels. But guess what?", 
-                              color: AppColors.white,
-                              fontsize: 10,
-                              fontWeight: FontWeight.normal,
-                              textalign: TextAlign.left,
-                            ),
-                          ),
-                        ],
+                    const SizedBox(
+                      width: 50,
+                    ),
+                    InfoPopupWidget(
+                      contentTitle: 'Forget crystal balls, your birthday is the best clue to your expiration date! Life expectancy keeps soaring, fueled by health-savvy choices and medical marvels. But guess what?',
+                      contentTheme: InfoPopupContentTheme(contentPadding: const EdgeInsets.all(15),
+                        infoContainerBackgroundColor: AppColors.black,
+                        infoTextStyle: TextStyle(
+                          color: AppColors.white,
+                          height: 1.5,
+                          fontSize: 10,
+                        )
+                      ),
+                      child: const Icon(
+                        Icons.info,
+                        color: Color(0xffFF8585),
+                        size: 24,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        IconButton(
-                          onPressed: () {
-
-                          },
-                          icon: const Icon(
-                            Icons.crisis_alert_outlined,
-                            color: Color(0xffFF8585),
-                            size: 24,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            UtillFunction.navigateTo(context, const Q2Page());
-                          },
-                          icon: const Icon(
-                            Icons.arrow_forward_ios,
-                            color: Color(0xffFF8585),
-                            size: 24,
-                          ),
-                        ),
-                      ],
+                    IconButton(
+                      onPressed: () {
+                        UtillFunction.navigateTo(context, const Q2Page());
+                      },
+                      icon: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Color(0xffFF8585),
+                        size: 24,
+                      ),
                     ),
                   ],
                 ),
