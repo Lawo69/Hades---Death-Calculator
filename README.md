@@ -1,6 +1,6 @@
 # hades
 
-A new Flutter project.
+ Wondering about the time left on your life's clock? Embrace the journey with this Flutter app that calculates your estimated death day and sets up a countdown to make every moment count.
 
 ## Getting Started
 
