@@ -8,15 +8,19 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q2Page extends StatefulWidget {
-  const Q2Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q2Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q2Page> createState() => _Q2PageState();
 }
 
 class _Q2PageState extends State<Q2Page> {
-  bool isContainerVisible = false;
+  bool isButtonPressedMale = false;
+  bool isButtonPressedFemale = false;
 
+  late int point = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,26 +56,38 @@ class _Q2PageState extends State<Q2Page> {
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedMale = true;
+                          isButtonPressedFemale = false;
+                          point = point + 2303655598;
+                        });
                       },
                       text: 'Male',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedMale,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedMale = false;
+                          isButtonPressedFemale = true;
+                          point = point + 2429883302;
+                        });
                       },
                       text: 'Female',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedFemale,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                   ],
-                ),                  
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -102,9 +118,11 @@ class _Q2PageState extends State<Q2Page> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        UtillFunction.navigateTo(context, const Q3Page());
-                      },
+                      onPressed: isButtonPressedMale || isButtonPressedFemale
+                    ? () {
+                        UtillFunction.navigateTo(context, Q3Page(marks: point));
+                      }
+                    : null,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         color: Color(0xffFF8585),

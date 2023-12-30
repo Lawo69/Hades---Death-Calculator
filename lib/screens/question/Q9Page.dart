@@ -8,14 +8,20 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q9Page extends StatefulWidget {
-  const Q9Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q9Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q9Page> createState() => _Q9PageState();
 }
 
 class _Q9PageState extends State<Q9Page> {
-  bool isContainerVisible = false;
+  bool isButtonPressedDoc1 = false;
+  bool isButtonPressedDoc2 = false;
+  bool isButtonPressedDoc3 = false;
+
+  late int point = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,30 +58,51 @@ class _Q9PageState extends State<Q9Page> {
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedDoc1 = true;
+                          isButtonPressedDoc2 = false;
+                          isButtonPressedDoc3 = false;
+                          point = point + 31556926;
+                        });
                       },
                       text: 'Once a year or less',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedDoc1,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedDoc1 = false;
+                          isButtonPressedDoc2 = true;
+                          isButtonPressedDoc3 = false;
+                          point = point - 10;
+                        });
                       },
                       text: 'Several times a year',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedDoc2,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedDoc1 = false;
+                          isButtonPressedDoc2 = false;
+                          isButtonPressedDoc3 = true;
+                          point = point - 31556926;
+                        });
                       },
                       text: 'Once a month or more',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedDoc3,
                     ),
                     const SizedBox(
                       height: 20,
@@ -112,9 +139,11 @@ class _Q9PageState extends State<Q9Page> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        UtillFunction.navigateTo(context, const Q10Page());
-                      },
+                      onPressed: isButtonPressedDoc1 || isButtonPressedDoc2 || isButtonPressedDoc3
+                    ? () {
+                        UtillFunction.navigateTo(context, Q10Page(marks: point));
+                      }
+                    : null,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         color: Color(0xffFF8585),

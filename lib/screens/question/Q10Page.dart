@@ -8,14 +8,20 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q10Page extends StatefulWidget {
-  const Q10Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q10Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q10Page> createState() => _Q10PageState();
 }
 
 class _Q10PageState extends State<Q10Page> {
-  bool isContainerVisible = false;
+  bool isButtonPressedSleep1 = false;
+  bool isButtonPressedSleep2 = false;
+  bool isButtonPressedSleep3 = false;
+
+  late int point = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,30 +58,51 @@ class _Q10PageState extends State<Q10Page> {
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedSleep1 = true;
+                          isButtonPressedSleep2 = false;
+                          isButtonPressedSleep3 = false;
+                          point = point - 31556926;
+                        });
                       },
                       text: 'More than 8 hours',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedSleep1,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedSleep1 = false;
+                          isButtonPressedSleep2 = true;
+                          isButtonPressedSleep3 = false;
+                          point = point - 10;
+                        });
                       },
                       text: '5 hours',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedSleep2,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedSleep1 = false;
+                          isButtonPressedSleep2 = false;
+                          isButtonPressedSleep3 = true;
+                          point = point - 189341556;
+                        });
                       },
                       text: 'Less than 3 hours',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedSleep3,
                     ),
                     const SizedBox(
                       height: 20,
@@ -112,9 +139,11 @@ class _Q10PageState extends State<Q10Page> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        UtillFunction.navigateTo(context, const endScreenPage());
-                      },
+                      onPressed: isButtonPressedSleep1 || isButtonPressedSleep2 || isButtonPressedSleep3
+                    ? () {
+                        UtillFunction.navigateTo(context, EndScreenPage(marks: point));
+                      }
+                    : null,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         color: Color(0xffFF8585),

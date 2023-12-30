@@ -8,14 +8,20 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q4Page extends StatefulWidget {
-  const Q4Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q4Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q4Page> createState() => _Q4PageState();
 }
 
 class _Q4PageState extends State<Q4Page> {
-  bool isContainerVisible = false;
+  bool isButtonPressedStress1 = false;
+  bool isButtonPressedStress2 = false;
+  bool isButtonPressedStress3 = false;
+
+  late int point = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,30 +58,51 @@ class _Q4PageState extends State<Q4Page> {
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedStress1 = true;
+                          isButtonPressedStress2 = false;
+                          isButtonPressedStress3 = false;
+                          point = point + 31556926;
+                        });
                       },
                       text: 'Stress is a positive influence',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedStress1,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedStress1 = false;
+                          isButtonPressedStress2 = true;
+                          isButtonPressedStress3 = false;
+                          point = point - 31556926;
+                        });
                       },
                       text: 'I have my share of ups and downs',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedStress2,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedStress1 = false;
+                          isButtonPressedStress2 = false;
+                          isButtonPressedStress3 = true;
+                          point = point - 157784630;
+                        });
                       },
                       text: 'Stress often overwhelms me',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedStress3,
                     ),
                     const SizedBox(
                       height: 20,
@@ -112,9 +139,11 @@ class _Q4PageState extends State<Q4Page> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        UtillFunction.navigateTo(context, const Q5Page());
-                      },
+                      onPressed: isButtonPressedStress1 || isButtonPressedStress2 || isButtonPressedStress3
+                      ? () {
+                          UtillFunction.navigateTo(context, Q5Page(marks: point));
+                        }
+                      : null,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         color: Color(0xffFF8585),

@@ -8,14 +8,20 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q7Page extends StatefulWidget {
-  const Q7Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q7Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q7Page> createState() => _Q7PageState();
 }
 
 class _Q7PageState extends State<Q7Page> {
-  bool isContainerVisible = false;
+  bool isButtonPressedAlcohol1 = false;
+  bool isButtonPressedAlcohol2 = false;
+  bool isButtonPressedAlcohol3 = false;
+
+  late int point = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,30 +58,51 @@ class _Q7PageState extends State<Q7Page> {
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedAlcohol1 = true;
+                          isButtonPressedAlcohol2 = false;
+                          isButtonPressedAlcohol3 = false;
+                          point = point + 31556926;
+                        });
                       },
                       text: 'Never drink',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedAlcohol1
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedAlcohol1 = false;
+                          isButtonPressedAlcohol2 = true;
+                          isButtonPressedAlcohol3 = false;
+                          point = point - 94670778;
+                        });
                       },
                       text: '2 times a week',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedAlcohol2
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedAlcohol1 = false;
+                          isButtonPressedAlcohol2 = false;
+                          isButtonPressedAlcohol3 = true;
+                          point = point - 189341556;
+                        });
                       },
                       text: 'Daily drinking',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedAlcohol3
                     ),
                     const SizedBox(
                       height: 20,
@@ -112,9 +139,11 @@ class _Q7PageState extends State<Q7Page> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        UtillFunction.navigateTo(context, const Q8Page());
-                      },
+                      onPressed: isButtonPressedAlcohol1 || isButtonPressedAlcohol2 || isButtonPressedAlcohol3
+                    ? () {
+                        UtillFunction.navigateTo(context, Q8Page(marks: point));
+                      }
+                    : null,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         color: Color(0xffFF8585),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/services/text_formatter.dart';
 
 class CustemTextfield extends StatefulWidget {
   const CustemTextfield({
@@ -11,6 +12,9 @@ class CustemTextfield extends StatefulWidget {
     this.hintTextColor = const Color(0xff858585),
     this.iconColor = const Color(0xffFF8585),
     this.width = 144,
+    this.keyboardType,
+    this.inputFormatters = const [],
+
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -21,6 +25,8 @@ class CustemTextfield extends StatefulWidget {
   final Color hintTextColor;
   final Color iconColor;
   final double width;
+  final TextInputType? keyboardType;
+  final List<FilteringTextInputFormatter> inputFormatters;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -33,6 +39,7 @@ class _CustemTextfieldState extends State<CustemTextfield> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
+      height: 50,
       child: TextField(
         controller: widget.controller,
         style: const TextStyle(
@@ -52,11 +59,14 @@ class _CustemTextfieldState extends State<CustemTextfield> {
           prefixIcon: widget.prefixIcon != null ? Icon(widget.prefixIcon!.icon, color: widget.iconColor) : null,
           iconColor: const Color(0xffFF8585),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(color: Color(0xffFF8585)),
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(
+              color: Color(0xffFF8585),
+              width: 2,
+            ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(5),
             borderSide: const BorderSide(color: Color(0xffFF8585)),
           ),
         ),

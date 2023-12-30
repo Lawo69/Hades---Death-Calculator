@@ -8,14 +8,21 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q8Page extends StatefulWidget {
-  const Q8Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q8Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q8Page> createState() => _Q8PageState();
 }
 
 class _Q8PageState extends State<Q8Page> {
-  bool isContainerVisible = false;
+  bool isButtonPressedSmoke1 = false;
+  bool isButtonPressedSmoke2 = false;
+  bool isButtonPressedSmoke3 = false;
+  bool isButtonPressedSmoke4 = false;
+
+  late int point = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,40 +59,72 @@ class _Q8PageState extends State<Q8Page> {
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedSmoke1 = true;
+                          isButtonPressedSmoke2 = false;
+                          isButtonPressedSmoke3 = false;
+                          isButtonPressedSmoke4 = false;
+                          point = point + 31556926;
+                        });
                       },
                       text: 'Never smoked',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedSmoke1,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedSmoke1 = false;
+                          isButtonPressedSmoke2 = true;
+                          isButtonPressedSmoke3 = false;
+                          isButtonPressedSmoke4 = false;
+                          point = point + 31556926;
+                        });
                       },
                       text: 'Quit more than 2 years ago',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedSmoke2,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedSmoke1 = false;
+                          isButtonPressedSmoke2 = false;
+                          isButtonPressedSmoke3 = true;
+                          isButtonPressedSmoke4 = false;
+                          point = point - 63113852;
+                        });
                       },
-                      text: 'Smoke less than 3 per day',
+                      text: 'Smoke less than 5 per week',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedSmoke3,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedSmoke1 = false;
+                          isButtonPressedSmoke2 = false;
+                          isButtonPressedSmoke3 = false;
+                          isButtonPressedSmoke4 = true;
+                          point = point - 126227704;
+                        });
                       },
-                      text: 'Smoke 10 or pack per day',
+                      text: 'Smoke more than 5 per day',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedSmoke4,
                     ),
                     const SizedBox(
                       height: 20,
@@ -122,9 +161,11 @@ class _Q8PageState extends State<Q8Page> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        UtillFunction.navigateTo(context, const Q9Page());
-                      },
+                      onPressed: isButtonPressedSmoke1 || isButtonPressedSmoke2 || isButtonPressedSmoke3 || isButtonPressedSmoke4
+                    ? () {
+                        UtillFunction.navigateTo(context, Q9Page(marks: point));
+                      }
+                    : null,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         color: Color(0xffFF8585),

@@ -1,165 +1,189 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../components/custem_text.dart';
 import '../../utils/app_colors.dart';
 
 // ignore: camel_case_types
-class endScreenPage extends StatefulWidget {
-  const endScreenPage({Key? key}) : super(key: key);
+class EndScreenPage extends StatefulWidget {
+  final int marks;
+
+  const EndScreenPage({Key? key, required this.marks}) : super(key: key);
 
   @override
-  State<endScreenPage> createState() => _endScreenPageState();
+  State<EndScreenPage> createState() => _EndScreenPageState();
 }
 
 // ignore: camel_case_types
-class _endScreenPageState extends State<endScreenPage> {
-  bool isContainerVisible = false;
+class _EndScreenPageState extends State<EndScreenPage> {
+
+  int getCurrentDateInSeconds() {
+    DateTime now = DateTime.now();
+    return now.millisecondsSinceEpoch ~/ 1000;
+  }
+
+
+
+  late int point = widget.marks;
+  late Timer timer;
+
+    @override
+  void initState() {
+    super.initState();
+
+    int currentSeconds = getCurrentDateInSeconds();
+    point = widget.marks - currentSeconds;
+
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (point > 0) {
+          point--;
+        } else {
+          timer.cancel();
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.secondaryColor,
-        body: Center(
-          child: Container(
-            padding: const EdgeInsets.all(35),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'ᾍδης',
-                    style: GoogleFonts.notoSans(
-                        color: AppColors.white,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: AppColors.secondaryColor,
+          body: Center(
+            child: Container(
+              padding: const EdgeInsets.all(35),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: 'ᾍδης',
+                      style: GoogleFonts.notoSans(
+                          color: AppColors.white,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustemText(
-                          text: '46',
-                          color: AppColors.white,
-                          fontsize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CustemText(
-                          text: 'YRS',
-                          color: AppColors.white,
-                          fontsize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                        height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustemText(
-                          text: '49',
-                          color: AppColors.white,
-                          fontsize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CustemText(
-                          text: 'DAY',
-                          color: AppColors.white,
-                          fontsize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                        height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustemText(
-                          text: '01',
-                          color: AppColors.white,
-                          fontsize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CustemText(
-                          text: 'HRS',
-                          color: AppColors.white,
-                          fontsize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                        height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustemText(
-                          text: '05',
-                          color: AppColors.white,
-                          fontsize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CustemText(
-                          text: 'MIN',
-                          color: AppColors.white,
-                          fontsize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                        height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustemText(
-                          text: '44',
-                          color: AppColors.white,
-                          fontsize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CustemText(
-                          text: 'SEC',
-                          color: AppColors.white,
-                          fontsize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        height: 10,
-                    ),
-                  ],
-                ),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          CustemText(
+                            text: '${point ~/ (3600 * 24 * 365)} '.padLeft(2, '0'),
+                            color: AppColors.white,
+                            fontsize: 35,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          CustemText(
+                            text: '${(point % (3600 * 24 * 365)) ~/ (3600 * 24)} '.padLeft(2, '0'),
+                            color: AppColors.white,
+                            fontsize: 35,
+                            fontWeight: FontWeight.bold,
+                          ), 
+                          CustemText(
+                            text: '${(point % (3600 * 24)) ~/ 3600}'.padLeft(2, '0'),
+                            color: AppColors.white,
+                            fontsize: 35,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          CustemText(
+                            text: '${(point % 3600) ~/ 60}'.padLeft(2, '0'),
+                            color: AppColors.white,
+                            fontsize: 35,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          CustemText(
+                            text: '${point % 60}'.padLeft(2, '0'),
+                            color: AppColors.white,
+                            fontsize: 35,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustemText(
+                            text: 'YRS',
+                            color: AppColors.white,
+                            fontsize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustemText(
+                            text: 'DAY',
+                            color: AppColors.white,
+                            fontsize: 15,
+                            fontWeight: FontWeight.bold,
+                          ), 
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustemText(
+                            text: 'HRS',
+                            color: AppColors.white,
+                            fontsize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustemText(
+                            text: 'MIN',
+                            color: AppColors.white,
+                            fontsize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          CustemText(
+                            text: 'SEC',
+                            color: AppColors.white,
+                            fontsize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                      height: 10,
+                  ),
+                      
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height: 10,
+                      ),
+                    ],
+                  ),
+                ],
+              )
             )
           )
         )

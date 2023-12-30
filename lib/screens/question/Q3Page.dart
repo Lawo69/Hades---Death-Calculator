@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hades/screens/question/Q4Page.dart';
 import 'package:info_popup/info_popup.dart';
@@ -8,20 +9,61 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q3Page extends StatefulWidget {
-  const Q3Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q3Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q3Page> createState() => _Q3PageState();
 }
 
 class _Q3PageState extends State<Q3Page> {
-  final _nameController = TextEditingController();
-  final _bdayController = TextEditingController();
+  final _heightController = TextEditingController();
+  final _weightController = TextEditingController();
+  bool isButtonEnabled = false;
+
+  void checkConditions() {
+    setState(() {
+      isButtonEnabled = _heightController.text.isNotEmpty && _weightController.text.isNotEmpty;
+    });
+  }
+
+  double bmi = 0.0;
+  late int point = 0;
+
+  void calculateBMI() {
+    double height = double.tryParse(_heightController.text) ?? 0.0;
+    double weight = double.tryParse(_weightController.text) ?? 0.0;
+
+    if (height > 0 && weight > 0) {
+      setState(() {
+        bmi = weight / ((height / 100) * (height / 100));
+      });
+    }
+
+    if ( bmi < 18.5) {
+      point = widget.marks;
+      point = point - 315569260;
+    } 
+    else if ( bmi < 24.9) {
+      point = widget.marks;
+      point = point + 10;
+    }
+    else if ( bmi < 29.9) {
+      point = widget.marks;
+      point = point + 157784630;
+    }
+    else {
+      point = widget.marks;
+      point = point - 157784630;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.secondaryColor,
         body: Center(
           child: Container(
@@ -54,7 +96,11 @@ class _Q3PageState extends State<Q3Page> {
                           fontsize: 18,
                         ),
                         CustemTextfield(
-                          controller: _nameController,
+                          controller: _heightController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
+                          keyboardType: TextInputType.number,
                         ),
                       ],
                     ),
@@ -74,7 +120,11 @@ class _Q3PageState extends State<Q3Page> {
                           width: 20,
                         ),
                         CustemTextfield(
-                          controller: _bdayController,
+                          controller: _weightController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
+                          keyboardType: TextInputType.number,
                         ),
                       ],
                     ),
@@ -117,7 +167,8 @@ class _Q3PageState extends State<Q3Page> {
                     ),
                     IconButton(
                       onPressed: () {
-                        UtillFunction.navigateTo(context, const Q4Page());
+                        calculateBMI();
+                        UtillFunction.navigateTo(context, Q4Page(marks: point));
                       },
                       icon: const Icon(
                         Icons.arrow_forward_ios,

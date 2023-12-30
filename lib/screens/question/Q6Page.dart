@@ -8,14 +8,20 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q6Page extends StatefulWidget {
-  const Q6Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q6Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q6Page> createState() => _Q6PageState();
 }
 
 class _Q6PageState extends State<Q6Page> {
-  bool isContainerVisible = false;
+  bool isButtonPressedDiet1 = false;
+  bool isButtonPressedDiet2 = false;
+  bool isButtonPressedDiet3 = false;
+
+  late int point = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,30 +58,51 @@ class _Q6PageState extends State<Q6Page> {
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedDiet1 = true;
+                          isButtonPressedDiet2 = false;
+                          isButtonPressedDiet3 = false;
+                          point = point + 63113852;
+                        });
                       },
                       text: 'Fruits and vegetables',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedDiet1,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedDiet1 = false;
+                          isButtonPressedDiet2 = true;
+                          isButtonPressedDiet3 = false;
+                          point = point - 50;
+                        });
                       },
                       text: 'Average amount of healthy & fast',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedDiet2,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedDiet1 = false;
+                          isButtonPressedDiet2 = false;
+                          isButtonPressedDiet3 = true;
+                          point = point - 31556926;
+                        });
                       },
                       text: 'Fast or processed foods regularly',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedDiet3,
                     ),
                     const SizedBox(
                       height: 20,
@@ -112,9 +139,11 @@ class _Q6PageState extends State<Q6Page> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        UtillFunction.navigateTo(context, const Q7Page());
-                      },
+                      onPressed: isButtonPressedDiet1 || isButtonPressedDiet2 || isButtonPressedDiet3
+                    ? () {
+                        UtillFunction.navigateTo(context, Q7Page(marks: point));
+                      }
+                    : null,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         color: Color(0xffFF8585),

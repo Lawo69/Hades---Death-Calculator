@@ -8,14 +8,21 @@ import '../../utils/app_colors.dart';
 import '../../utils/utill_function.dart';
 
 class Q5Page extends StatefulWidget {
-  const Q5Page({Key? key}) : super(key: key);
+  final int marks;
+
+  const Q5Page({Key? key, required this.marks}) : super(key: key);
 
   @override
   State<Q5Page> createState() => _Q5PageState();
 }
 
 class _Q5PageState extends State<Q5Page> {
-  bool isContainerVisible = false;
+  bool isButtonPressedExercise1 = false;
+  bool isButtonPressedExercise2 = false;
+  bool isButtonPressedExercise3 = false;
+  bool isButtonPressedExercise4 = false;
+
+  late int point = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,40 +59,72 @@ class _Q5PageState extends State<Q5Page> {
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedExercise1 = true;
+                          isButtonPressedExercise2 = false;
+                          isButtonPressedExercise3 = false;
+                          isButtonPressedExercise4 = false;
+                          point = point + 31556926;
+                        });
                       },
                       text: 'Daily vigorous exercise',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedExercise1,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedExercise1 = false;
+                          isButtonPressedExercise2 = true;
+                          isButtonPressedExercise3 = false;
+                          isButtonPressedExercise4 = false;
+                          point = point + 31556926;
+                        });
                       },
                       text: 'Minimum 30 min 4 days per week',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedExercise2,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedExercise1 = false;
+                          isButtonPressedExercise2 = false;
+                          isButtonPressedExercise3 = true;
+                          isButtonPressedExercise4 = false;
+                          point = point - 10;
+                        });
                       },
                       text: 'Somewhat active',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedExercise3,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     CustomButton(
                       onTap: () async {
-
+                        setState(() {
+                          point = widget.marks;
+                          isButtonPressedExercise1 = false;
+                          isButtonPressedExercise2 = false;
+                          isButtonPressedExercise3 = false;
+                          isButtonPressedExercise4 = true;
+                          point = point - 94670778;
+                        });
                       },
                       text: 'Not active',
                       width: MediaQuery.of(context).size.width,
+                      isButtonPressed: isButtonPressedExercise4,
                     ),
                     const SizedBox(
                       height: 20,
@@ -122,9 +161,11 @@ class _Q5PageState extends State<Q5Page> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        UtillFunction.navigateTo(context, const Q6Page());
-                      },
+                      onPressed: isButtonPressedExercise1 || isButtonPressedExercise2 || isButtonPressedExercise3 || isButtonPressedExercise4
+                    ? () {
+                        UtillFunction.navigateTo(context, Q6Page(marks: point));
+                      }
+                    : null,
                       icon: const Icon(
                         Icons.arrow_forward_ios,
                         color: Color(0xffFF8585),
