@@ -75,7 +75,7 @@ class _EndScreenPageState extends State<EndScreenPage> {
                     text: TextSpan(
                       text: 'ᾍδης',
                       style: GoogleFonts.notoSans(
-                          color: AppColors.white,
+                          color: AppColors.primaryColor,
                           fontSize: 35,
                           fontWeight: FontWeight.bold),
                     ),
@@ -86,88 +86,102 @@ class _EndScreenPageState extends State<EndScreenPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          CustemText(
-                            text: '${point ~/ (3600 * 24 * 365)} '.padLeft(2, '0'),
-                            color: AppColors.white,
-                            fontsize: 35,
-                            fontWeight: FontWeight.bold,
+                          Row(
+                            children: [
+                              CustemText(
+                                text: '${point ~/ (3600 * 24 * 365)}'.padLeft(2, '0'),
+                                color: AppColors.white,
+                                fontsize: 50,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              CustemText(
+                                text: '  .YRS',
+                                color: AppColors.white,
+                                fontsize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
                           ),
-                          CustemText(
-                            text: '${(point % (3600 * 24 * 365)) ~/ (3600 * 24)} '.padLeft(2, '0'),
-                            color: AppColors.white,
-                            fontsize: 35,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Row(
+                            children: [
+                              CustemText(
+                                text: '${(point % (3600 * 24 * 365)) ~/ (3600 * 24)}'.padLeft(2, '0'),
+                                color: AppColors.white,
+                                fontsize: 50,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              CustemText(
+                                text: '  .DAY',
+                                color: AppColors.white,
+                                fontsize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
                           ), 
-                          CustemText(
-                            text: '${(point % (3600 * 24)) ~/ 3600}'.padLeft(2, '0'),
-                            color: AppColors.white,
-                            fontsize: 35,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: 15,
                           ),
-                          CustemText(
-                            text: '${(point % 3600) ~/ 60}'.padLeft(2, '0'),
-                            color: AppColors.white,
-                            fontsize: 35,
-                            fontWeight: FontWeight.bold,
+                          Row(
+                            children: [
+                              CustemText(
+                                text: '${(point % (3600 * 24)) ~/ 3600}'.padLeft(2, '0'),
+                                color: AppColors.white,
+                                fontsize: 50,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              CustemText(
+                                text: '  .HRS',
+                                color: AppColors.white,
+                                fontsize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
                           ),
-                          CustemText(
-                            text: '${point % 60}'.padLeft(2, '0'),
-                            color: AppColors.white,
-                            fontsize: 35,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Row(
+                            children: [
+                              CustemText(
+                                text: '${(point % 3600) ~/ 60}'.padLeft(2, '0'),
+                                color: AppColors.white,
+                                fontsize: 50,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              CustemText(
+                                text: '  .MIN',
+                                color: AppColors.white,
+                                fontsize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Row(
+                            children: [
+                              CustemText(
+                                text: '${point % 60}'.padLeft(2, '0'),
+                                color: AppColors.white,
+                                fontsize: 50,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              CustemText(
+                                text: '  .SEC',
+                                color: AppColors.white,
+                                fontsize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustemText(
-                            text: 'YRS',
-                            color: AppColors.white,
-                            fontsize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          CustemText(
-                            text: 'DAY',
-                            color: AppColors.white,
-                            fontsize: 15,
-                            fontWeight: FontWeight.bold,
-                          ), 
-                          SizedBox(
-                            height: 30,
-                          ),
-                          CustemText(
-                            text: 'HRS',
-                            color: AppColors.white,
-                            fontsize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          CustemText(
-                            text: 'MIN',
-                            color: AppColors.white,
-                            fontsize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          CustemText(
-                            text: 'SEC',
-                            color: AppColors.white,
-                            fontsize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ],
-                      ),
+                      
+                      
                     ],
                   ),
                   const SizedBox(
